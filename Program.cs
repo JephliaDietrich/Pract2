@@ -1,4 +1,4 @@
-﻿namespace Pract2
+﻿namespace Pract2._2
 {
     internal class Program
     {
@@ -17,13 +17,31 @@
             tree.Output();
 
             Flower flower = new Flower("", 0, 0, "", "");
+            Flower flower1 = new Flower("Magic", 0.5, 1, "black", "Lilia");
             Console.WriteLine($"About the flower");
+            Console.WriteLine();
+            Console.WriteLine(flower1.ToString());
             Console.WriteLine();
             flower.Informinput();
             Console.WriteLine();
             flower.Info();
             Console.WriteLine();
             flower.FlowerOut();
+
+            Console.WriteLine();
+            Console.WriteLine();
+            flower.ToString();
+            Console.WriteLine();
+
+            if (flower.Equals(flower1))
+            {
+                Console.WriteLine("These are identical flowers!");
+            }
+            else
+            {
+                Console.WriteLine("These are different flowers.");
+            }
+
 
         }
     }

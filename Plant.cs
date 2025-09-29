@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pract2
+namespace Pract2._2
 {
-    public class Plant
+    public abstract class Plant
     {
         protected string name;
         protected double hight;
@@ -22,14 +23,16 @@ namespace Pract2
         public string Name
         {
             get { return name; }
-            set {
+            set
+            {
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     Console.WriteLine($"The name cannot be empty.");
                     name = "nothing";
-                } else
+                }
+                else
                     name = value;
-                    }
+            }
         }
         public double Age
         {
@@ -81,13 +84,10 @@ namespace Pract2
             double hight1 = double.Parse(hightPlant);
             this.Hight = hight1;
         }
-        public virtual void Info()
-        {
-            Console.WriteLine($"This is {Name}, {Age} years old and is {Hight} cm tall.");
-        }
+        public abstract void Info();
     }
 
-     public class Tree : Plant
+    public class Tree : Plant
     {
         public string fruit;
         public int rings;
@@ -101,13 +101,15 @@ namespace Pract2
         public string Fruit
         {
             get { return fruit; }
-            set { if (value == "yes") 
+            set
+            {
+                if (value == "yes")
                 {
                     Console.WriteLine();
                     Console.WriteLine($"Your tree bears fruit.");
                     fruit = "Your tree has fruit";
                 }
-                else if(value == "no")
+                else if (value == "no")
                 {
                     Console.WriteLine();
                     Console.WriteLine($"Your tree is not bearing fruit.");
@@ -119,17 +121,21 @@ namespace Pract2
         public int Rings
         {
             get { return rings; }
-            set { if(value <= 30)
+            set
+            {
+                if (value <= 30)
                 {
                     Console.WriteLine();
                     Console.WriteLine($"Your tree is young.");
                     rings = value;
-                } else if(30 < value||value <= 80)
+                }
+                else if (30 < value || value <= 80)
                 {
                     Console.WriteLine();
                     Console.WriteLine($"Your tree is middle-aged.");
                     rings = value;
-                } else if(value > 80)
+                }
+                else if (value > 80)
                 {
                     Console.WriteLine();
                     Console.WriteLine($"Your tree is elderly.");
@@ -140,7 +146,7 @@ namespace Pract2
 
         public override void Info()
         {
-            Console.WriteLine($"This is {Name}, {Age} years old and is {Hight} cm tall.{Fruit} and has {Rings} rings.");
+            Console.WriteLine($"Tree {Name}, {Age} years old, {Hight} cm tall, fruit: {Fruit}, rings: {Rings}");
         }
 
         public override void Informinput()
@@ -175,7 +181,8 @@ namespace Pract2
                 Console.WriteLine();
                 Console.WriteLine($"We have this tree with this number of rings in its trunk. Here is detailed information about this tree.");
                 Info();
-            } else
+            }
+            else
             {
                 Console.WriteLine();
                 Console.WriteLine($"We do not have a tree with that name and with that number of rings in its trunk." + name1Tree + $" " + rings2);
@@ -203,7 +210,8 @@ namespace Pract2
         public string Color
         {
             get { return color; }
-            set {
+            set
+            {
 
                 if (string.IsNullOrWhiteSpace(value))
                 {
@@ -233,6 +241,27 @@ namespace Pract2
             }
         }
 
+        public override void Info() // реалізація абстрактного методу   
+        {
+            Console.WriteLine("It is a flower; it has petals and a stem.");
+        }
+
+        public override string ToString()
+        {
+            return $"Flower {Name}, {Age} years old. Color: {Color}";
+        }// реалізація віртуаального методу ToString
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Flower other)
+            {
+                
+                return this.Type == other.Type &&
+                       this.Color == other.Color &&
+                       this.Name == other.Name;
+            }
+            return false;
+        }//реалізація віртуаального методу Equals
         public override void Informinput()
         {
             base.Informinput();
@@ -245,7 +274,6 @@ namespace Pract2
             string? colorFlower = Console.ReadLine();
             this.Color = colorFlower;
         }
-
         public void FlowerOut()
         {
             Console.WriteLine($"What type is your flower? Type:");
